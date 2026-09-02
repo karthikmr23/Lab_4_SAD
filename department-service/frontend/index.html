@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Department Service</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Community Civic Portal</h1>
+
+    <h2>Department & Officer Registration</h2>
+
+    <form id="departmentForm">
+
+        <label>Department Name</label>
+        <input type="text" id="departmentName" required>
+
+        <label>Officer Name</label>
+        <input type="text" id="officerName" required>
+
+        <label>Ward</label>
+        <input type="text" id="ward" required>
+
+        <label>Contact</label>
+        <input type="text" id="contact" required>
+
+        <button type="submit">Add Department</button>
+
+    </form>
+
+    <div id="result"></div>
+
+    <hr>
+
+    <h2>Find Department</h2>
+
+    <input type="number" id="searchDepartmentId" placeholder="Department ID">
+
+    <button onclick="findDepartment()">Find Department</button>
+
+    <div id="departmentDetails"></div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

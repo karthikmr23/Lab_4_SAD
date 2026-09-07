@@ -5,51 +5,90 @@ document.getElementById("complaintForm")
 
         event.preventDefault();
 
-        const citizenId = document.getElementById("citizenId").value;
-        const description = document.getElementById("description").value;
-        const location = document.getElementById("location").value;
+        const citizenId =
+            document.getElementById("citizenId").value;
 
-        const response = await fetch(API_URL + "/complaints", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                citizen_id: citizenId,
-                description: description,
-                location: location
-            })
-        });
+        const complaintType =
+            document.getElementById("complaintType").value;
 
-        const data = await response.json();
+        const description =
+            document.getElementById("description").value;
 
-        document.getElementById("result").innerHTML =
-            `<h3>Complaint Registered</h3>
-            Complaint ID: ${data.complaint_id}<br>
-            Status: ${data.status}`;
+        const location =
+            document.getElementById("location").value;
+
+        try {
+            const response = await fetch(API_URL + "/complaints", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    citizen_id: citizenId,
+                    complaint_type: complaintType,
+                    description: description,
+                    location: location
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                document.getElementById("result").innerHTML =
+                    `<h3>Complaint Registered</h3>
+                    Complaint ID: ${data.complaint_id}<br>
+                    Citizen: ${data.citizen_name}<br>
+                    Type: ${data.complaint_type}<br>
+                    Department: ${data.department}<br>
+                    Officer: ${data.officer}<br>
+                    Status: ${data.status}`;
+            } else {
+                document.getElementById("result").innerHTML =
+                    `<p>${data.error}</p>`;
+            }
+
+        } catch (error) {
+            document.getElementById("result").innerHTML =
+                `<p>Complaint Service is unavailable.</p>`;
+        }
     });
+
 
 async function findComplaint() {
 
-    const id = document.getElementById("searchComplaintId").value;
+    const id =
+        document.getElementById("searchComplaintId").value;
 
-    const response = await fetch(API_URL + "/complaints/" + id);
-
-    const data = await response.json();
-
-    if (response.ok) {
-
+    if (!id) {
         document.getElementById("complaintDetails").innerHTML =
-            `<h3>Complaint Details</h3>
-            Complaint ID: ${data.complaint_id}<br>
-            Citizen ID: ${data.citizen_id}<br>
-            Issue: ${data.description}<br>
-            Location: ${data.location}<br>
-            Status: ${data.status}`;
+            "<p>Please enter a Complaint ID.</p>";
+        return;
+    }
 
-    } else {
+    try {
+        const response =
+            await fetch(API_URL + "/complaints/" + id);
 
+        const data = await response.json();
+
+        if (response.ok) {
+            document.getElementById("complaintDetails").innerHTML =
+                `<h3>Complaint Details</h3>
+                Complaint ID: ${data.complaint_id}<br>
+                Citizen ID: ${data.citizen_id}<br>
+                Type: ${data.complaint_type}<br>
+                Issue: ${data.description}<br>
+                Location: ${data.location}<br>
+                Department: ${data.department}<br>
+                Officer: ${data.officer}<br>
+                Status: ${data.status}`;
+        } else {
+            document.getElementById("complaintDetails").innerHTML =
+                `<p>${data.error}</p>`;
+        }
+
+    } catch (error) {
         document.getElementById("complaintDetails").innerHTML =
-            data.error;
+            "<p>Complaint Service is unavailable.</p>";
     }
 }

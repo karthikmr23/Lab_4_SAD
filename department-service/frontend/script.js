@@ -17,6 +17,9 @@ document.getElementById("departmentForm")
         const contact =
             document.getElementById("contact").value;
 
+        const complaintType =
+            document.getElementById("complaintType").value;
+
         const response = await fetch(API_URL + "/departments", {
             method: "POST",
             headers: {
@@ -26,7 +29,8 @@ document.getElementById("departmentForm")
                 department_name: departmentName,
                 officer_name: officerName,
                 ward: ward,
-                contact: contact
+                contact: contact,
+                complaint_type: complaintType
             })
         });
 
@@ -38,7 +42,8 @@ document.getElementById("departmentForm")
             Department: ${data.department_name}<br>
             Officer: ${data.officer_name}<br>
             Ward: ${data.ward}<br>
-            Contact: ${data.contact}`;
+            Contact: ${data.contact}<br>
+            Handles: ${data.complaint_type}`;
     });
 
 async function findDepartment() {
@@ -59,7 +64,8 @@ async function findDepartment() {
             Department: ${data.department_name}<br>
             Officer: ${data.officer_name}<br>
             Ward: ${data.ward}<br>
-            Contact: ${data.contact}`;
+            Contact: ${data.contact}<br>
+            Handles: ${data.complaint_type}`;
 
     } else {
 

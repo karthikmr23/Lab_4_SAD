@@ -28,6 +28,14 @@
         <label>Contact</label>
         <input type="text" id="contact" required>
 
+        <label>Complaint Type Handled</label>
+        <select id="complaintType" required>
+            <option value="">Select Complaint Type</option>
+            <option value="pothole">Pothole</option>
+            <option value="garbage">Garbage</option>
+            <option value="water">Water Leakage</option>
+        </select>
+
         <button type="submit">Add Department</button>
 
     </form>
@@ -38,7 +46,11 @@
 
     <h2>Find Department</h2>
 
-    <input type="number" id="searchDepartmentId" placeholder="Department ID">
+    <input
+        type="number"
+        id="searchDepartmentId"
+        placeholder="Department ID"
+    >
 
     <button onclick="findDepartment()">Find Department</button>
 
